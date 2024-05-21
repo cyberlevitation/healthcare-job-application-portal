@@ -15,10 +15,18 @@ const InputlayoutOnePage = () => {
   const [checked, setChecked] = useState(true);
   const [drivingLicenseValue, setDrivingLicenseValue] = useState(false);
   const [vehicleValue, setVehicleValue] = useState(false);
+  const [manualDriverValue, setManualDriverValue] = useState(false);
+  const [automaticDriverValue, setAutomaticDriverValue] = useState(false);
+  const [clientVehicleValue, setClientVehicleValue] = useState(false);
+  const [workPurposeInsuranceValue, setWorkPurposeInsuranceValue] =
+    useState(false);
+  const [appliedPreviouslyValue, setAppliedPreviouslyValue] = useState(false);
+  const [workedPreviouslyValue, setWorkedPreviouslyValue] = useState(false);
+  const [otherAgenciesValue, setOtherAgenciesValue] = useState(false);
 
   const FormValidationSchema = yup
     .object({
-      username: yup.string().required(),
+      // username: yup.string().required(),
       number: yup.number().required().positive(),
       betweenNumber: yup
         .number()
@@ -41,7 +49,6 @@ const InputlayoutOnePage = () => {
       message: yup.string().required("The Message field is required"),
     })
     .required();
-  };
   const {
     register,
     formState: { errors },
@@ -51,11 +58,12 @@ const InputlayoutOnePage = () => {
   });
 
   const onSubmit = (data) => {
+    alert("Submit method was triggered");
     console.log(data);
   };
 
   return (
-    <div className="grid xl:grid-cols-2 grid-cols-1 gap-5">
+    <div className="grid grid-cols-1 gap-5">
       <Card title="Personal details">
         <form
           onSubmit={handleSubmit(onSubmit)}
@@ -68,7 +76,7 @@ const InputlayoutOnePage = () => {
             placeholder="Forename"
             name="forename"
             register={register}
-            error={errors.username}
+            error={errors.forname}
           />
           <Textinput
             label="Surname"
@@ -77,7 +85,7 @@ const InputlayoutOnePage = () => {
             placeholder="Surname"
             name="surname"
             register={register}
-            error={errors.username}
+            error={errors.surname}
           />
           <Textinput
             label="Birth Name"
@@ -86,9 +94,8 @@ const InputlayoutOnePage = () => {
             placeholder="Birth Name"
             name="birthName"
             register={register}
-            error={errors.username}
+            error={errors.birthName}
           />
-
           <Textarea
             label="Current Address"
             id="streetNameAddress"
@@ -96,7 +103,7 @@ const InputlayoutOnePage = () => {
             placeholder="Street No. and Name"
             name="streetNameAddress"
             register={register}
-            error={errors.username}
+            error={errors.streetNameAddress}
           />
           <Textinput
             label="TownAddress"
@@ -121,9 +128,8 @@ const InputlayoutOnePage = () => {
             placeholder="Postcode"
             name="postcode"
             register={register}
-            error={errors.username}
+            error={errors.postcode}
           />
-
           <Textinput
             label="Email"
             id="email"
@@ -140,16 +146,16 @@ const InputlayoutOnePage = () => {
             placeholder="Nationality"
             name="nationality"
             register={register}
-            error={errors.username}
+            error={errors.nationality}
           />
           <Textinput
-            label="HomeTelephone"
+            label="Home Telephone Number"
             id="homeTelephone"
             type="text"
             placeholder="Home Telephone"
             name="homeTelephone"
             register={register}
-            error={errors.username}
+            error={errors.homeTelephone}
           />
           <Textinput
             label="Mobile"
@@ -158,25 +164,25 @@ const InputlayoutOnePage = () => {
             placeholder="Mobile number "
             name="mobile"
             register={register}
-            error={errors.username}
+            error={errors.mobile}
           />
           <Textinput
-            label="BirthDate"
+            label="Birth Date"
             id="birthDate"
             type="text"
             placeholder="Date of Birth"
             name="birthDate"
             register={register}
-            error={errors.username}
+            error={errors.birthDate}
           />
           <Textinput
-            label="PassportNumber"
+            label="Passport Number"
             id="passportNumber"
             type="text"
             placeholder="Passport Number"
             name="passportNumber"
             register={register}
-            error={errors.username}
+            error={errors.passportNumber}
           />
           <Textinput
             label="PassportExpiryDate"
@@ -187,7 +193,6 @@ const InputlayoutOnePage = () => {
             register={register}
             error={errors.username}
           />
-
           <Textinput
             label="NationalInsuranceNumber"
             id="nationalInsuranceNumber"
@@ -197,94 +202,106 @@ const InputlayoutOnePage = () => {
             register={register}
             error={errors.username}
           />
-
           <Checkbox
             label="Do you have a driving License?"
             name="drivingLicense"
+            id="drivingLicense"
             value={drivingLicenseValue}
+            register={register}
             onChange={() => setDrivingLicenseValue(!drivingLicenseValue)}
           />
-
-          <div className="flex flex-wrap space-xy-5">
-            <Textinput
-              label="Please advise if you have any current or past endorsements on your license and give details"
-              id="drivingLicenseEndorsements"
-              type="text"
-              placeholder="Please advise if you have any current or past endorsements on your license and give details"
-              name="drivingLicenseEndorsements"
-              register={register}
-              // error={errors.nationalInsuranceNumber}
-            />
-
-            <Textinput
-              label="Where was your license issued"
-              type="text"
-              placeholder=""
-              name="drivingLicenseLocation"
-              register={register}
-              // error={errors.nationalInsuranceNumber}
-            />
-
+          <Textarea
+            label="Please advise if you have any current or past endorsements on your license and give details"
+            id="drivingLicenseEndorsements"
+            type="text"
+            placeholder="Please advise if you have any current or past endorsements on your license and give details"
+            name="drivingLicenseEndorsements"
+            register={register}
+            error={errors.drivingLicenseEndorsements}
+          />
+          <Textinput
+            label="Where was your license issued"
+            type="text"
+            placeholder=""
+            id="drivingLicenseLocation"
+            name="drivingLicenseLocation"
+            register={register}
+            error={errors.drivingLicenseLocation}
+          />
           <Checkbox
             label="Do you own a vehicle?"
             name="vehicle"
+            id="vehicle"
             value={vehicleValue}
+            register={register}
             onChange={() => setVehicleValue(!vehicleValue)}
           />
-
-         <Checkbox
+          <Checkbox
             label="Are you a manual driver?"
             name="manualDriver"
             value={manualDriverValue}
+            register={register}
             onChange={() => setManualDriverValue(!manualDriverValue)}
           />
-
-        <Checkbox
+          <Checkbox
             label="Are you a automatic driver?"
             name="automaticDriver"
             value={automaticDriverValue}
+            register={register}
             onChange={() => setAutomaticDriverValue(!automaticDriverValue)}
-          />   
-
-        <Checkbox
+          />
+          <Checkbox
             label="Are you happy to drive a client around in his/her vehicle?"
             name="clientVehicle"
             value={clientVehicleValue}
+            register={register}
             onChange={() => setClientVehicleValue(!clientVehicleValue)}
-          /> 
-        <Checkbox
+          />
+          <Checkbox
             label="Do you have the necessary insurance in place to use your own vehicle for business or work purposes?"
-            name="workPurpose"
-            value={clientVehicleValue}
-            onChange={() => setClientVehicleValue(!clientVehicleValue)}
+            name="workPurposeInsurance"
+            value={workPurposeInsuranceValue}
+            register={register}
+            onChange={() =>
+              setWorkPurposeInsuranceValue(!workPurposeInsuranceValue)
+            }
           />
-        <Checkbox
-            label="Are you happy to drive a client around in his/her vehicle?"
-            name="clientVehicle"
-            value={clientVehicleValue}
-            onChange={() => setClientVehicleValue(!clientVehicleValue)}
+          <Checkbox
+            label="Have you ever previously applied for a job with Super Healthcare?"
+            name="appliedPreviously"
+            value={appliedPreviouslyValue}
+            register={register}
+            onChange={() => setAppliedPreviouslyValue(!appliedPreviouslyValue)}
           />
-        <Checkbox
-            label="Are you happy to drive a client around in his/her vehicle?"
-            name="clientVehicle"
-            value={clientVehicleValue}
-            onChange={() => setClientVehicleValue(!clientVehicleValue)}
+          <Checkbox
+            label="Have you ever previously worked for Super Healthcare"
+            name="workedPreviously"
+            value={workedPreviouslyValue}
+            register={register}
+            onChange={() => setWorkedPreviouslyValue(!workedPreviouslyValue)}
           />
-        <Checkbox
-            label="Are you happy to drive a client around in his/her vehicle?"
-            name="clientVehicle"
-            value={clientVehicleValue}
-            onChange={() => setClientVehicleValue(!clientVehicleValue)}
-          />        
-          </div>
+          <Checkbox
+            label="Worked at any other Healthcare Agency?"
+            name="otherAgencies"
+            value={otherAgenciesValue}
+            register={register}
+            onChange={() => setOtherAgenciesValue(!otherAgenciesValue)}
+          />
 
+          {otherAgenciesValue && (
+            <Textinput
+              label=""
+              type="text"
+              id="companyWorkedFor"
+              placeholder="Company name and location"
+              name="companyWorkedFor"
+              className="h-[32px] text-sm"
+              register={register}
+              error={errors.companyWorkedFor}
+            />
+          )}
 
           <div className=" space-y-4">
-            <Checkbox
-              label="Remember me"
-              value={checked}
-              onChange={() => setChecked(!checked)}
-            />
             <Button text="Submit" type="submit" className="btn-dark" />
           </div>
         </form>
